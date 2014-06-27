@@ -1,0 +1,2 @@
+select start_time, stop_time, source, polar, st2, snr, base_ed, exper_name from pima_observations
+where snr>5.7 AND (polar='RL' OR polar='RL') AND st1='RADIO-AS' AND band='l'
