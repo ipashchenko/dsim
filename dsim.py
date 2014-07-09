@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
-from math import sin, cos, acos, pi, sqrt
+import math
 
 
 # R_{i} = g_{i} * ||M_{i}*exp(2i*\chi^{M}_{i})*exp(-2i*\fi_{i}^{GRT}) +
@@ -40,27 +40,27 @@ def get_z_rotation_in_image_plane(z_old, z_new, x_new):
         y,z-plane [rad].
     """
     # degrees -> rads
-    z_old = np.asarray(z_old) * pi / 180.
-    z_new = np.asarray(z_new) * pi / 180.
-    x_new = np.asarray(x_new) * pi / 180.
+    z_old = np.asarray(z_old) * math.pi / 180.
+    z_new = np.asarray(z_new) * math.pi / 180.
+    x_new = np.asarray(x_new) * math.pi / 180.
     # Unit vectors of axes in coordinate system with unit vectors x=(\alpha=0,
     # \delta=0), y=(\alpha=+90deg, \delta=0), z along \delta=+90deg
-    n_z_old = np.asarray([cos(z_old[0]) * cos(z_old[1]),
-                          sin(z_old[0]) * cos(z_old[1]),
-                          sin(z_old[1])])
-    n_z_new = np.asarray([cos(z_new[0]) * cos(z_new[1]),
-                          sin(z_new[0]) * cos(z_new[1]),
-                          sin(z_new[1])])
-    n_x_new = np.asarray([cos(x_new[0]) * cos(x_new[1]),
-                          sin(x_new[0]) * cos(x_new[1]),
-                          sin(x_new[1])])
+    n_z_old = np.asarray([math.cos(z_old[0]) * math.cos(z_old[1]),
+                          math.sin(z_old[0]) * math.cos(z_old[1]),
+                          math.sin(z_old[1])])
+    n_z_new = np.asarray([math.cos(z_new[0]) * math.cos(z_new[1]),
+                          math.sin(z_new[0]) * math.cos(z_new[1]),
+                          math.sin(z_new[1])])
+    n_x_new = np.asarray([math.cos(x_new[0]) * math.cos(x_new[1]),
+                          math.sin(x_new[0]) * math.cos(x_new[1]),
+                          math.sin(x_new[1])])
 
     # Projecting ``n_z_old`` on ``yz_new`` plane
     n_z_old_2_yz_new = n_z_old - np.dot(n_z_old, n_x_new) * n_x_new
     # Normalization
     n_z_old_2_yz_new = n_z_old_2_yz_new / np.linalg.norm(n_z_old_2_yz_new)
     # Find angle between two unit vectors
-    theta = acos(np.dot(n_z_old_2_yz_new, n_z_new))
+    theta = math.acos(np.dot(n_z_old_2_yz_new, n_z_new))
 
     return theta
 
@@ -77,13 +77,13 @@ class Simulation(object):
     Class that represents data (cross-to-parallel hands amplitude ratios)
     generating process.
     """
-    def __init__(self, mean_ampD_ra, sigma_ampD_ra, mean_phD_ra, sigma_phD_ra,
-                 mean_ampD_grt, sigma_ampD_grt):
+    def __init__(self, mean_ampD_ra=0.08, sigma_ampD_ra=0.01, mean_phD_ra, sigma_phD_ra,
+                 mean_ampD_grt, sigma_ampD_grt, sigma_r=0.05):
         pass
 
-    def generate(self, m, n=10000):
+    def generate(self, m):
         """
-        Generate ``n`` values of cross-to-parallel hands ratios amplitudes
+        Generate value of cross-to-parallel hands ratios amplitude
         using parameters of Radioastron given in class constructor and
         ``func1``-transform of the amplitude of source frac. LP.
         """
