@@ -88,7 +88,7 @@ class Simulation(object):
         ``func1``-transform of the amplitude of source frac. LP.
         """
 
-        M = m - 2. + math.sqrt(4. + m ** 2.)
+        M = m - 2. + sqrt(4. + m ** 2.)
         results = list()
         for i in range(n):
             result =
