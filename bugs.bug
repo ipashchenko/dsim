@@ -1,0 +1,31 @@
+# 1 ground RT, ``Nsource`` sources in one band for one ground RT
+# each source has constant value of M~trNorm(mu_source, tau_source), also we
+# have grouping sources to band mu_source ~ trnorm(muG_source, tau_MG), where
+# muG_source reflect typical frac.polarization at given band
+model{
+  for(n in 1: Nscans){
+    R[n] ~ dnorm(mu_R[n], tau_R_exp[n])
+    mu_R[n] = r[n]*abs(M[n]*exp(-2.*i*fi_M[n]) + D_grt[n]*exp(i*fi_dgrt[n]) +
+                                D_RA[n] * exp(-i*fi_dRA[n]) * exp(-2.*i*fi_12[n]))
+    r[n] ~ lognorm(1, tau_r)
+    M[n] ~ trnorm(mu_M[source[n]], tau_M[source[n]])
+    D_grt[n] ~ trnorm(mu_grt, tau_grt)
+  }
+
+  for(s in 1: Nsource){
+    # band grouping
+    mu_M[s] ~ trnorm(muG_s, tau_MG) T(0, )
+    tau_M[s] ~ gamma(S_M, R_M)
+  }
+
+  tau_r = ...
+  mu_grt ~ trnorm(muG_Dgrt, tauG_Dgrt)
+  tau_grt ~ gamma(S_Dgrt, R_Dgrt)
+  muG_Dgrt = ...
+  tauG_Dgrt = ...
+  S_M = ...
+  R_M = ...
+  S_Dgrt = ...
+  R_Dgrt = ...
+
+}
