@@ -1,8 +1,8 @@
+<<<<<<< HEAD
 # 1 ground RT, ``Nexp`` experiments for one source in one band for one ground
 # RT. In each experimetn source has constant value of M~trNorm(mu_source,
 # tau_source), also we have grouping sources to mu_source ~ trnorm(muG_source,
 # tau_MG), where muG_source&tau_MG reflect typical frac.polarization of source
-# at given frequency band.
 model{
   for(n in 1: Nscans){
     R[n] ~ dnorm(mu_R[n], tau_R_exp[n])
@@ -13,6 +13,7 @@ model{
     D_grt[n] ~ trnorm(mu_grt[exper[n]], tau_grt[exper[n]])
   }
 
+<<<<<<< HEAD
   for(e in 1: Nexp){
     # source's & GRT D-term's group distribution
     mu_M[e] ~ trnorm(muG_s, tau_MG) T(0, )
