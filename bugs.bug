@@ -1,28 +1,29 @@
-# 1 ground RT, ``Nsource`` sources in one band for one ground RT
-# each source has constant value of M~trNorm(mu_source, tau_source), also we
-# have grouping sources to band mu_source ~ trnorm(muG_source, tau_MG), where
-# muG_source reflect typical frac.polarization at given band
+# 1 ground RT, ``Nexp`` experiments for one source in one band for one ground
+# RT. In each experimetn source has constant value of M~trNorm(mu_source,
+# tau_source), also we have grouping sources to mu_source ~ trnorm(muG_source,
+# tau_MG), where muG_source&tau_MG reflect typical frac.polarization of source
+# at given frequency band.
 model{
   for(n in 1: Nscans){
     R[n] ~ dnorm(mu_R[n], tau_R_exp[n])
     mu_R[n] = r[n]*abs(M[n]*exp(-2.*i*fi_M[n]) + D_grt[n]*exp(i*fi_dgrt[n]) +
                                 D_RA[n] * exp(-i*fi_dRA[n]) * exp(-2.*i*fi_12[n]))
     r[n] ~ lognorm(1, tau_r)
-    M[n] ~ trnorm(mu_M[source[n]], tau_M[source[n]])
-    D_grt[n] ~ trnorm(mu_grt, tau_grt)
+    M[n] ~ trnorm(mu_M[exper[n]], tau_M[exper[n]])
+    D_grt[n] ~ trnorm(mu_grt[exper[n]], tau_grt[exper[n]])
   }
 
-  for(s in 1: Nsource){
-    # band grouping
-    mu_M[s] ~ trnorm(muG_s, tau_MG) T(0, )
-    tau_M[s] ~ gamma(S_M, R_M)
+  for(e in 1: Nexp){
+    # source's & GRT D-term's group distribution
+    mu_M[e] ~ trnorm(muG_s, tau_MG) T(0, )
+    fi_M[e] ~ trnorm(muG_phase_s, tau_MG_phase) T(0, )
+    D_grt[e] ~ trnorm(muG_grt, tau_DG) T(0, )
+    tau_grt[e] ~ gamma(S_Dgrt, R_Dgrt)
+    fi_dgrt[e] ~ trnorm(muG_phase_grt, tau_DG_phase) T(0, )
+    tau_M[e] ~ gamma(S_M, R_M)
   }
 
   tau_r = ...
-  mu_grt ~ trnorm(muG_Dgrt, tauG_Dgrt)
-  tau_grt ~ gamma(S_Dgrt, R_Dgrt)
-  muG_Dgrt = ...
-  tauG_Dgrt = ...
   S_M = ...
   R_M = ...
   S_Dgrt = ...
