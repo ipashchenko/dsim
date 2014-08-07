@@ -1,6 +1,9 @@
 #!/usr/bin python
 # -*- coding: utf-8 -*-
 
+# Modified Bessel function of order 0
+from scipy.special import i0
+
 
 class LnPost(object):
     """
