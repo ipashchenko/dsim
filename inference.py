@@ -50,7 +50,38 @@ class LnLike(object):
     def __call__(self, p, *args, **kwargs):
         """
         Returns ln of likelihood function of data ``obs`` given parameters
-        ``p``.
+        ``p``, where vector of parameters:
+        p = [mu_amp_M_G, tau_amp_M_G, mu_ph_M_G, tau_ph_M_G, mu_amp_M_i,
+        ta_amp_M_i, mu_amp_D_grt_G, tau_amp_D_grt_G, mu_ph_D_grt_G,
+        tau_ph_D_grt_G, mu_amp_D_grt_i, tau_amp_D_grt_i, mu_ph_D_grt_i,
+        tau_ph_D_grt_i, mu_r_G, tau_r_G, mu_r_i, tau_r_i, mu_amp_D_ra,
+        tau_amp_D_ra, mu_ph_D_ra, tau_ph_D_ra]
+
+        ``mu_amp_M_G`` - group mean of amplitude of frac. pol.
+        ``tau_amp_M_G`` - group precision of amplitude of frac. pol.
+        ``mu_ph_M_G`` - group mean of phase of frac. pol.
+        ``tau_ph_M_G`` - group precision of phase of frac. pol.
+        ``mu_amp_M_i`` - mean of amplitude of frac. pol. for i-th group.
+        ``ta_amp_M_i`` - precision of amplitude of frac. pol. for i-th group.
+        ``mu_amp_D_grt_G`` - group mean of amplitude of GRT D-term.
+        ``tau_amp_D_grt_G`` - group precision of amplitude of GRT D-term.
+        ``mu_ph_D_grt_G`` - group mean of phase of GRT D-term.
+        ``tau_ph_D_grt_G`` - group precision of phase of GRT D-term.
+        ``mu_amp_D_grt_i`` - mean of amplitude of GRT D-term for i-th
+            experiment.
+        ``tau_amp_D_grt_i`` - precision of amplitude of GRT D-term for i-th
+            group.
+        ``mu_ph_D_grt_i`` - mean of phase of GRT D-term for i-th group.
+        ``tau_ph_D_grt_i`` - precision of phase of GRT D-term for i-th group.
+        ``mu_r_G`` - group mean of amplitude of L,R gains ratio.
+        ``tau_r_G`` - group precision of amplitude L,R gains ratio.
+        ``mu_r_i`` - mean of amplitude of L,R gains ration for i-th experiment.
+        ``tau_r_i`` - precision of amplitude of L,R gains ration for i-th
+            experiment.
+        ``mu_amp_D_ra`` - mean of amplitude of RA D-term.
+        ``tau_amp_D_ra`` - precision of amplitude of RA D-term.
+        ``mu_ph_D_ra`` - mean of phase of RA D-term.
+        ``tau_ph_D_ra`` - precision of phase of RA D-term.
         """
         pass
 
