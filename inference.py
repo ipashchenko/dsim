@@ -1,6 +1,11 @@
 #!/usr/bin python
 # -*- coding: utf-8 -*-
 
+# Modified Bessel function of order 0
+from scipy.special import i0
+from scipy.misc import logsumexp
+import math
+
 
 class LnPost(object):
     """
@@ -107,3 +112,20 @@ def model(p):
         Amplitude of cross-to-parallel hands ratio for given parameters ``p``.
     """
     pass
+
+
+def lnpdf_von_mises(x, mu, k):
+    """
+    Returns pdf of Von Mises distribution with parameters ``mu`` & ``k``
+    (~precision of noraml distribution).
+    """
+    return k * math.cos(x - mu) - math.log(2. * math.pi * i0(k))
+    
+
+def lnpdf_wrapped_normal(x, mu, tau, T=None):
+    """
+    Returns pdf of Wrapped Normal distribution with period ``T`` & interval
+    [0, T] or [-T/2, T/2].
+    """
+    k = np.arange(-5,5)
+    return -0.5 * math.log(2. * math.pi) + 0.5 * math.log(tau) + logsumexp(-tau * (x - mu + T * k)

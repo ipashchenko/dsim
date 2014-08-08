@@ -225,9 +225,9 @@ def get_samples_from_truncated_normal(mean, sigma, a, b, size):
                            size=size)
     return norm.ppf(us, **kwargs)
 
-def get_samples_from_folded_normal(mean, sigma, a, b, size):
+def get_samples_from_wrapped_normal(mean, sigma, a, b, size):
     """
-    Function that returns samples from normal distribution folded to [a,b]
+    Function that returns samples from normal distribution wrapped to [a,b]
     interval (e.g. [-pi, +pi])
     :param mean:
     :param sigma:
